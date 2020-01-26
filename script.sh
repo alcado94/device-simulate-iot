@@ -2,6 +2,16 @@
 
 echo "Initialize device..."
 
+if [ $# == 2 ]; then
+    hostname=$1
+    port=$2
+else
+    hostname="localhost"
+    port="8080"
+fi
+
+echo "Sending data to http://$hostname:$port"
+
 while IFS=, read -r col1 col2 col3 col4 col5 col6 col7
 do
     
@@ -16,10 +26,9 @@ do
         current="$(date -d $time '+%H:%M:%S')"
     done
 
-
-    echo "C1: $col1\t C2: $col2\t C3: $col3\t C4: $col4\t C5: $col5\t C6: $col6\t C7: $col7"
+    #echo "C1: $col1\t C2: $col2\t C3: $col3\t C4: $col4\t C5: $col5\t C6: $col6\t C7: $col7"
     echo '{"lat":"'"$col3"'", "log":"'"$col4"'"}'     
-    #curl -H "Content-Type: application/json" -d '{"lat":"'"$col1"'", "log":"'"$col2"'"}' -X POST http://localhost:8081
+    curl -H "Content-Type: application/json" -d '{"lat":"'"$col1"'", "log":"'"$col2"'"}' -X POST http://$hostname:$port
 
 
 

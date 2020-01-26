@@ -10,6 +10,15 @@ or
 
 `sh ./script`
 
+By default, the script will send a http POST to 'http://localhost:8080'. If you want to change the url run the next command:
+
+`./script {your_url_to_server} {server_port}`
+
+or
+
+`sh ./script {your_url_to_server} {server_port}`
+
+
 ## Docker
 To execute the Dockerfile we just need to execute the next command to build:
 
@@ -17,4 +26,4 @@ To execute the Dockerfile we just need to execute the next command to build:
 
 Next step is run the container:
 
-`docker run -d -v $PWD/data:/home/data device-iot`
+`docker run -d -e HOST={your_url_to_server} -e PORT={server_port} -v $PWD/data:/home/data device-iot`
